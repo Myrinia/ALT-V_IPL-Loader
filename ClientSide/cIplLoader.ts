@@ -322,8 +322,15 @@ class cIPLManager {
         alt.on('resourceStop', () => {
             this.stop();
         });
+        
+        alt.onServer('IPLLoader::Add', this.addIPLFromServer);
     }
-
+    
+    addIPLFromServer = async (iplname: string, description: string, posX: number, posY: number, posZ: number, hasInteriour:boolean) => {
+        const iplToAdd = { iplname: iplname, desc: description, pos: new alt.Vector3(posX, posY, posZ), isLoaded: false, hasInteriour: hasInteriour };
+        this.addIPL(iplToAdd);
+    }
+    
     start = async () => {
         this.currentCheckInterval = alt.setInterval(this.check, 500);
     }
