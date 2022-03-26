@@ -391,7 +391,7 @@ class cIPLManager {
     }
 
     activateIPL(ipl: IPL) {
-        if (!ipl.isLoaded) { // Skip if it is already loaded
+        if (!ipl.isLoaded) { // Load the IPL if it is not loaded
             if (ipl.iplname !== '') {
                 native.requestIpl(ipl.iplname);
             }
@@ -406,7 +406,7 @@ class cIPLManager {
     }
 
     deactivateIPL(ipl: IPL) {
-        if (!ipl.isLoaded) { // Skip if it is not loaded
+        if (ipl.isLoaded) { // Unload the IPL if it is loaded
             if (ipl.iplname !== '') {
                 native.removeIpl(ipl.iplname);
             }
