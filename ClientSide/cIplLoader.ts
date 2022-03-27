@@ -11,7 +11,8 @@ interface IPL {
     pos: alt.Vector3,
     isLoaded: boolean,
     hasInteriour: boolean
-    interiourHandle: number
+    interiourHandle: number,
+    children: string[]
 };
 
 // Empty ipl
@@ -131,7 +132,7 @@ export const IPLS : IPL[] = [
     { iplname: 'methtrailer_grp1', desc: 'Lost\'s trailer park', pos: new alt.Vector3(49.49379, 3744.472, 46.38629), isLoaded: false },
     { iplname: 'bkr_bi_hw1_13_int', desc: 'Lost Clubhouse', pos: new alt.Vector3(984.1552, -95.3662, 74.50), isLoaded: false },
     { iplname: 'rc12b_default', desc: 'Pillbox hospital', pos: new alt.Vector3(307.1680, -590.807, 43.280), isLoaded: false },
-    { iplname: 'shr_int', desc: 'PDM (Simons Car Dealer)', pos: new alt.Vector3(-54.30, -1109.3767, 26.4358), isLoaded: false },
+    { iplname: 'shr_int', desc: 'PDM (Simons Car Dealer)', pos: new alt.Vector3(-54.30, -1109.3767, 26.4358), isLoaded: false, children: ['csr_beforeMission','shutter_closed' ], hasInteriour: true },
     { iplname: 'CS3_07_MPGates', desc: 'Remove Zancudoe Gates', pos: new alt.Vector3(-1599.95, 2807.05, 17.204), isLoaded: false },
     { iplname: 'ferris_finale_Anim', desc: 'Ferris Wheel', pos: new alt.Vector3(-1645.55, -1113.04, 12.65), isLoaded: false },
     { iplname: 'hei_dlc_windows_casino', desc: 'Casino Penthouse Glassfront', pos: new alt.Vector3(968.156, 0.3060, 111.2922), isLoaded: false },
@@ -391,13 +392,20 @@ class cIPLManager {
     }
 
     activateIPL(ipl: IPL) {
-        if (!ipl.isLoaded) { // Load the IPL if it is not loaded
+        if (!ipl.isLoaded) { // Skip if it is already loaded
             if (ipl.iplname !== '') {
                 native.requestIpl(ipl.iplname);
             }
 
             if (ipl.hasInteriour) {
                 ipl.interiourHandle = native.getInteriorAtCoords(ipl.pos.x, ipl.pos.y, ipl.pos.z);
+
+                if (ipl.children.length > 0) {
+                    ipl.children.forEach(name => {
+                        native.activateInteriorEntitySet(ipl.interiourHandle, name);
+                    });
+                }
+                native.refreshInterior(ipl.interiourHandle);
             }
 
             ipl.isLoaded = true;
