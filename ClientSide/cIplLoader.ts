@@ -399,11 +399,13 @@ class cIPLManager {
 
             if (ipl.hasInteriour) {
                 ipl.interiourHandle = native.getInteriorAtCoords(ipl.pos.x, ipl.pos.y, ipl.pos.z);
-
-                if (ipl.children.length > 0) {
-                    ipl.children.forEach(name => {
-                        native.activateInteriorEntitySet(ipl.interiourHandle, name);
-                    });
+                
+                if(ipl.hasOwnProperty("children")){
+                    if (ipl.children.length > 0) {
+                        ipl.children.forEach(name => {
+                            native.activateInteriorEntitySet(ipl.interiourHandle, name);
+                        });
+                    }
                 }
                 native.refreshInterior(ipl.interiourHandle);
             }
