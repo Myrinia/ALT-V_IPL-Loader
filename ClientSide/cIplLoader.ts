@@ -25,8 +25,6 @@ export const IPLS : IPL[] = [
     { iplname: 'vw_casino_carpark', desc: 'Casino Parkhouse', pos: new alt.Vector3(1380.0000, 200.0000, -50.0000), isLoaded: false },
     { iplname: 'vw_casino_garage', desc: 'Casino Garage', pos: new alt.Vector3(1295.0000, 230.0000, -50.0000), isLoaded: false },
     { iplname: 'vw_casino_main', desc: 'Casino Main', pos: new alt.Vector3(1100.0000, 220.0000, -50.0000), isLoaded: false },
-    { iplname: 'vw_dlc_Casino_door', desc: 'Casino Door', pos: new alt.Vector3(924.369, 47.037, 81.093), isLoaded: false },
-    { iplname: 'hei_dlc_casino_door', desc: 'Casino Door', pos: new alt.Vector3(924.369, 47.037, 81.093), isLoaded: false },
 
     // Bunkers
     { iplname: 'gr_case10_bunkerclosed', desc: 'Zancudo Bunker', pos: new alt.Vector3(-3058.714, 3329.19, 12.5844), isLoaded: false },
@@ -128,7 +126,7 @@ export const IPLS : IPL[] = [
     { iplname: 'Carwash_with_spinners', desc: 'Carwash', pos: new alt.Vector3(55.7, -1391.3, 30.5), isLoaded: false },
     { iplname: 'sp1_10_real_interior_lod', desc: 'Stadium', pos: new alt.Vector3(-248.491, -2010.509, 34.574), isLoaded: false },
     { iplname: 'bkr_bi_id1_23_door', desc: 'Garage in La Mesa', pos: new alt.Vector3(970.27453, -1826.56982, 31.11477), isLoaded: false },
-    { iplname: 'lr_cs6_08_grave_closed	', desc: 'Red Hill Valley church - Grave', pos: new alt.Vector3(-282.4638, 2835.84, 55.914), isLoaded: false },
+    { iplname: 'lr_cs6_08_grave_closed', desc: 'Red Hill Valley church - Grave', pos: new alt.Vector3(-282.4638, 2835.84, 55.914), isLoaded: false },
     { iplname: 'methtrailer_grp1', desc: 'Lost\'s trailer park', pos: new alt.Vector3(49.49379, 3744.472, 46.38629), isLoaded: false },
     { iplname: 'bkr_bi_hw1_13_int', desc: 'Lost Clubhouse', pos: new alt.Vector3(984.1552, -95.3662, 74.50), isLoaded: false },
     { iplname: 'rc12b_default', desc: 'Pillbox hospital', pos: new alt.Vector3(307.1680, -590.807, 43.280), isLoaded: false },
@@ -240,7 +238,8 @@ export const IPLS : IPL[] = [
     { iplname: 'farm', desc: 'Farm', pos: new alt.Vector3(2469.03, 4955.278, 45.11892), isLoaded: false },
     { iplname: 'farm_lod', desc: 'Farm LOD', pos: new alt.Vector3(2469.03, 4955.278, 45.11892), isLoaded: false },
     { iplname: 'farm_props', desc: 'Farm Props', pos: new alt.Vector3(2469.03, 4955.278, 45.11892), isLoaded: false },
-    { iplname: 'farm_int', desc: 'Farm int', pos: new alt.Vector3(2469.03, 4955.278, 45.11892), isLoaded: false },
+    { iplname: 'farmint', desc: 'Farm int', pos: new alt.Vector3(2469.03, 4955.278, 45.11892), isLoaded: false },
+    { iplname: 'des_farmhouse', desc: 'Upper floor farm outside', pos: new alt.Vector3(2469.03, 4955.278, 45.11892), isLoaded: false },
 
     // Morgue
     { iplname: 'coronertrash', desc: 'Coronoertrash', pos: new alt.Vector3(275.446, -1361.11, 24.5378), isLoaded: false },
@@ -264,10 +263,10 @@ export const IPLS : IPL[] = [
     { iplname: '', desc: '10 Car Garage', pos: new alt.Vector3(229.9559, -981.7928, -99.66071), isLoaded: false },
 
     // NO IPL Names
-    //Casino
+    // Casino
     { iplname: 'vw_dlc_casino_door', desc: 'Casino Doors', pos: new alt.Vector3(924.369, 47.037, 81.093), isLoaded: false, hasInteriour: true },
     { iplname: 'hei_dlc_casino_door', desc: 'Casino Doors2', pos: new alt.Vector3(924.369, 47.037, 81.093), isLoaded: false, hasInteriour: true },
-
+    
     // Garages
     { iplname: '', desc: '2 Car Garage', pos: new alt.Vector3(173.2903, -1003.6, -99.65707), isLoaded: false, hasInteriour: true },
     { iplname: '', desc: '6 Car Garage', pos: new alt.Vector3(173.2903, -1003.6, -99.65707), isLoaded: false, hasInteriour: true },
@@ -365,7 +364,7 @@ class cIPLManager {
 
         // Check if the IPL's are in range, and save them
         this.currentIPLs.forEach(ipl => {
-            if (ipl.pos.distanceTo(playerPos) < 100) { // less then 100 meter away
+            if (ipl.pos.distanceTo(playerPos) < 1000) { // less then 1000 meter away
                 // We need this IPL, so add it to our needed IPL
                 if (!neededIPLs.hasOwnProperty(ipl.iplname)) {
                     neededIPLs[ipl.iplname] = ipl;
